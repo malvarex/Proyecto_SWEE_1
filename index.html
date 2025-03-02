@@ -20,18 +20,41 @@
         <button class="button">PDF</button>
     </div>
     <div id="map"></div>
-    <h2>Mapa con Leaflet</h2>
-    <div id="map"></div>
     
-    
+    <div>
+        <h2>barrio Carvajal </h2>
+        <p>Barrio Residencial.</p>
+    </div>
 </body>
 <script>
     // Crear el mapa y centrarlo en una ubicación específica (latitud, longitud)
-    var map = L.map('map').setView([4.607263, -74.139166], 12); // Carvajal Osorio Bogotá, Colombia
+    var map = L.map('map').setView([4.6123904, -74.140098], 15); // Carvajal Osorio Bogotá, Colombia
 
     // Agregar capa de mapa base (OpenStreetMap)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
+
+    loadPolygon();
+    loadTrees();
+
+    async function loadPolygon() {
+
+        fetch("carvajal_II.geojson")
+    .then(response => response.json())
+    .then(data => {
+        L.geoJSON(data, {
+            style: {
+                color: "blue",
+                weight: 2,
+                fillColor: "cyan",
+                fillOpacity: 0.4
+            }
+        }).addTo(map);
+    })
+    .catch(error => console.error("Error al cargar el GeoJSON:", error));
+        }
+    
+
 </script>
 </html>
