@@ -36,7 +36,6 @@
     }).addTo(map);
 
     loadPolygon();
-    loadTrees();
 
     async function loadPolygon() {
 
@@ -54,7 +53,21 @@
     })
     .catch(error => console.error("Error al cargar el GeoJSON:", error));
         }
-    
+    document.getElementById("btnTrees").addEventListener("click", function loadTrees() {
+        fetch("arboles_carvajal.geojson")
+    .then(response => response.json())
+    .then(data => {
+        L.geoJSON(data, {
+            style: {
+                color: "red",
+                weight: 2,
+                fillColor: "cyan",
+                fillOpacity: 0.4
+            }
+        }).addTo(map);
+    })
+    .catch(error => console.error("Error al cargar el GeoJSON:", error));
+    })
 
 </script>
 </html>
